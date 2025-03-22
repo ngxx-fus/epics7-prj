@@ -1,0 +1,14 @@
+{
+    "files.associations": {
+        "*.c": "c",
+        "*.cpp": "cpp",
+        "array": "cpp",
+        "functional": "cpp",
+        "istream": "cpp",
+        "ostream": "cpp",
+        "tuple": "cpp",
+        "type_traits": "cpp",
+        "utility": "cpp",
+        "esp32-hal-matrix.h": "c"
+    }
+}
