@@ -5,13 +5,22 @@
 
 /// ---------------------------------------------------------------------- ///
 
+#include "serial_com.hpp"
+
 #define LOG false
+#include "ultrasonic_sensor.hpp"
+#define LOG true
 
 /// ---------------------------------------------------------------------- ///
 
-#include "serial_com.hpp"
-
-#include "ultrasonic_sensor.hpp"
+#if !defined(LOG)
+    #define LOG false
+#endif
+#if !defined(LOGGER) && LOG == true
+    #include "serial_com.hpp"
+    SerialLogger logger(115200);
+    #define  LOGGER(...) logger.log(__VA_ARGS__)
+#endif
 
 /// ---------------------------------------------------------------------- ///
 
@@ -34,11 +43,6 @@
 #endif
 
 /// ---------------------------------------------------------------------- ///
-
-#if !defined(LOGGER)
-    SerialLogger        logger(115200);
-    #define  LOGGER(...) logger.log(__VA_ARGS__)
-#endif
 
 UltrasonicSensor    ultrasonic_sensor_0(21, 22);
 
