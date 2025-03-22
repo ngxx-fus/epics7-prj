@@ -18,6 +18,5 @@ void loop(){
             "\t\td_avg: ", d_sum/c, " cm"
             "\t\td_delta: ", (d_delta*100/d_sum), " cm"
         );
-        // logger.print("\n\n");
     }
 }
