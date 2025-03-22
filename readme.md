@@ -1,6 +1,6 @@
 # EPICS
 
-  EPICS stands for Engineering Projects in Community Service. 
+  EPICS is an acronym for Engineering Projects in Community Service.
 
 ## About the reposistory
 
