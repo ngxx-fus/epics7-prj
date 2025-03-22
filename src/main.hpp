@@ -3,7 +3,17 @@
 
 #include "Arduino.h"
 
-#include "ultrasonic_sensors.hpp"
+/// ---------------------------------------------------------------------- ///
+
+#define LOG false
+
+/// ---------------------------------------------------------------------- ///
+
+#include "serial_com.hpp"
+
+#include "ultrasonic_sensor.hpp"
+
+/// ---------------------------------------------------------------------- ///
 
 #ifndef rept
     #define rept(type, i, start, stop) for(type i = (start); i < (stop); ++i)
@@ -23,12 +33,17 @@
     #define __ms_wait(MILI_SEC) delay(MILI_SEC)
 #endif
 
-const uint8_t OUTPIN0 = 16;
-const uint8_t OUTPIN1 = 17;
+/// ---------------------------------------------------------------------- ///
 
-void __init_out_pins(){
-    pinMode(OUTPIN0, OUTPUT);
-    pinMode(OUTPIN1, OUTPUT);
-}
+#if !defined(LOGGER)
+    SerialLogger        logger(115200);
+    #define  LOGGER(...) logger.log(__VA_ARGS__)
+#endif
 
+UltrasonicSensor    ultrasonic_sensor_0(21, 22);
+
+uint8_t c = 0;
+float d_sum = 0;
+float d_avg = 0;
+float d_delta = 0;
 #endif
