@@ -94,22 +94,26 @@
 #define NOTE_CS8 4435
 #define NOTE_D8  4699
 #define NOTE_DS8 4978
+
+
+
 #define thres uint8_t(40*255/100)
 #define spkr_on(pin) digitalWrite(pin, HIGH)
 #define spkr_off(pin) digitalWrite(pin, LOW)
-// #define spkr_on(pin) analogWrite(pin, thres)
-// #define spkr_off(pin) analogWrite(pin, 0)
-#define period  1UL
 
+#define TEMPO 120
 
-inline void play(uint32_t p, uint16_t t = 50){
-    while(--t){
+inline void play(uint32_t freq, uint16_t note_coef){
+    const uint32_t half_period  = 500000UL/freq;
+    const uint32_t start_t      = micros();
+    const uint32_t duration     = ( 60000000UL / note_coef ) / TEMPO;
+    while(abs(micros() - start_t) < duration){
         spkr_off(10);
         spkr_off(11);
-        delayMicroseconds(p/2);
+        delayMicroseconds(half_period);
         spkr_on(10);
         spkr_on(11);
-        delayMicroseconds(p/2);
+        delayMicroseconds(half_period);
         spkr_off(10);
         spkr_off(11);
     }
