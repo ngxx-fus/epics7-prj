@@ -100,7 +100,7 @@ if [ $add_status -ne 0 ]; then
 fi
 
 printf "${color}git commit -m \"$(date +"%R %d/%m") - $message\"${norm}\n"
-git commit -m "$(date + "%R %d/%m") - $message"
+git commit -m "$(date +"%R %d/%m") - $message"
 commit_status=$?
 if [ $commit_status -ne 0 ]; then
     printf "${e_color}Error: git commit failed with status $commit_status${norm}\n" >&2
