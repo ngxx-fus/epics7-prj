@@ -63,4 +63,6 @@ class SerialLogger{
         }
 };
 
+SerialLogger logger;
+
 #endif
