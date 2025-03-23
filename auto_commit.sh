@@ -108,7 +108,7 @@ if [ $commit_status -ne 0 ]; then
 fi
 
 printf "${color}git push -u $branch_name${norm}\n"
-git push -u single-sensor
+git push sender HEAD:$branch_name
 push_status=$?
 if [ $push_status -ne 0 ]; then
     printf "${e_color}Error: git push failed with status $push_status${norm}\n" >&2
