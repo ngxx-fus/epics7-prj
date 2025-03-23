@@ -9,7 +9,8 @@
 class SerialLogger{
     private:
         uint32_t monitor_speed = MONITOR_SPEED;
-        String init_msg = "\n\nHello from ESP-WROOM32!\n\n";
+        String init_msg = ">>> HELLO >>>";
+        bool initialized;
 
     protected:
         void change_init_msg(String new_init_msg){
@@ -18,16 +19,25 @@ class SerialLogger{
 
     public:
 
-        SerialLogger(){
-            this->monitor_speed = MONITOR_SPEED;
-            HW_SERIAL_OBJ.begin(this->monitor_speed);
-            HW_SERIAL_OBJ.println(init_msg);
+        SerialLogger(uint32_t monitor_speed = MONITOR_SPEED){
+            this->monitor_speed = monitor_speed;
+            this->initialized = false;
         }
 
-        SerialLogger(uint32_t monitor_speed = MONITOR_SPEED){
+        bool ready(){
+            return initialized;
+        }
+        
+        void begin(uint32_t monitor_speed = MONITOR_SPEED){
             this->monitor_speed = monitor_speed;
             HW_SERIAL_OBJ.begin(this->monitor_speed);
             HW_SERIAL_OBJ.println(init_msg);
+            initialized = true;
+        }
+        
+        void end(){
+            HW_SERIAL_OBJ.end();
+            initialized = false;
         }
 
         void set_monitor_speed(uint32_t monitor_speed = MONITOR_SPEED){
