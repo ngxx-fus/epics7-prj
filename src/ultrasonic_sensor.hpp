@@ -56,8 +56,8 @@ protected:
 
     void fire_trigger(){
         if(!__pin_echo || !__pin_trigger) return;
-        __set_low(__pin_trigger);   ets_delay_us(10);
-        __set_high(__pin_trigger);  ets_delay_us(10);
+        __set_low(__pin_trigger);   delayMicroseconds(10);
+        __set_high(__pin_trigger);  delayMicroseconds(10);
         __set_low(__pin_trigger);
         __fired = true; // Mark as fired
     }
@@ -68,7 +68,7 @@ public:
         __pin_echo = (is_valid_pin(echo_pin))? echo_pin : 0;
         if(!__pin_echo || !__pin_trigger) return;
         pinMode(__pin_trigger, OUTPUT);
-        pinMode(__pin_echo, INPUT_PULLDOWN);
+        pinMode(__pin_echo, INPUT_PULLUP);
         #if defined(LOGGER)  && LOG == true 
             LOGGER("__pin_trigger:  ", __pin_trigger);
             LOGGER("__pin_echo   :  ", __pin_echo);
@@ -100,11 +100,11 @@ public:
     }
 
     ~UltrasonicSensor(){
-        pinMode(__pin_echo, INPUT | OPEN_DRAIN);
-        pinMode(__pin_trigger, INPUT | OPEN_DRAIN);
+        pinMode(__pin_echo, INPUT);
+        pinMode(__pin_trigger, INPUT);
         #if defined(LOGGER)  && LOG == true 
-            LOGGER("__pin_trigger:  ", "INPUT | OPEN_DRAIN");
-            LOGGER("__pin_echo   :  ", "INPUT | OPEN_DRAIN");
+            LOGGER("__pin_trigger:  ", "INPUT");
+            LOGGER("__pin_echo   :  ", "INPUT");
         #endif
     }
 };
