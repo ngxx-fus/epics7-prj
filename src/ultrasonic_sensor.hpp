@@ -108,4 +108,12 @@ public:
         #endif
     }
 };
+
+
+UltrasonicSensor    ultrasonic_sensor_0(21, 22);
+uint8_t c = 0;
+float d_sum = 0;
+float d_avg = 0;
+float d_delta = 0;
+
 #endif

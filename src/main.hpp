@@ -7,8 +7,8 @@
 
 #include "serial_com.hpp"
 
-#define LOG false
-#include "ultrasonic_sensor.hpp"
+// #define LOG false
+// #include "ultrasonic_sensor.hpp"
 #define LOG true
 
 /// ---------------------------------------------------------------------- ///
@@ -44,10 +44,4 @@
 
 /// ---------------------------------------------------------------------- ///
 
-UltrasonicSensor    ultrasonic_sensor_0(21, 22);
-
-uint8_t c = 0;
-float d_sum = 0;
-float d_avg = 0;
-float d_delta = 0;
 #endif
