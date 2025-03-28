@@ -80,9 +80,20 @@ class MultiUltrasonicSensor{
             /// mark as un-initialized
             initialized = false;
         }
-
         bool ready(){
             return initialized;
+        }
+
+        uint8_t num(){
+            return __num;
+        }
+
+        uint8_t trigger_pin(){
+            return __pin_trigger;
+        }
+
+        uint8_t* echo_pins(){
+            return __pin_echo;
         }
 
         void begin(){
@@ -97,7 +108,8 @@ class MultiUltrasonicSensor{
 
         float measure(uint8_t dev_id){
             set_fire();
-            return (34000 * get_echo_pulse_width(dev_id))/ 2000000UL;
+            float _distance = (34000 * get_echo_pulse_width(dev_id))/ 2000000UL;
+            return (_distance < 300.0)? _distance : 300.0;
         }
 
         void end(){
@@ -111,8 +123,5 @@ class MultiUltrasonicSensor{
             delete[] __pin_echo;
         }
 };
-
-uint8_t echo_pin_list[6] = {2, 3, 4, 5, 6, 7};
-MultiUltrasonicSensor sensor((uint8_t) 14, (uint8_t*) echo_pin_list, (uint8_t) 6);
 
 #endif

@@ -1,32 +1,17 @@
-// #include "main.hpp"
-#include "Arduino.h"
-
-#include "serial_com.hpp"
-#include "multi-ultrasonic_sensor.hpp"
+#include "main.hpp"
 
 void setup(){
     logger.begin();
-    sensor.begin();
+    sensors.begin();
 }
 
-String visual[11] = {
-    "|         ",
-    "#         ",
-    "##        ",
-    "###       ",
-    "####      ",
-    "#####     ",
-    "######    ",
-    "#######   ",
-    "########  ",
-    "######### ",
-    "##########"
-};
-
 void loop(){
-    for(uint8_t i = 0; i < 6; ++i){
-        logger.log(visual[uint32_t(sensor.measure(i)*10/300)]);
-        delay(20);
+    // logger.write("waiting...");
+    if(logger.msg_comming()){
+        received_msg = logger.read_msg();
+        for(auto c:received_msg){
+            // logger.write("reading... command: ", c);
+            command_processing(c);
+        }
     }
-    logger.log("\n\n");
-    delay(100); 
+}

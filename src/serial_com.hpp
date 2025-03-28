@@ -48,24 +48,41 @@ class SerialLogger{
         }
 
         template<class Tmsg>
-        void print(Tmsg the_msg){
+        void write(Tmsg the_msg){
             HW_SERIAL_OBJ.println(String(the_msg));
         }
 
         template<class Tmsg, class... Tmsgs>
-        void print(Tmsg msg, Tmsgs... msgs){
+        void write(Tmsg msg, Tmsgs... msgs){
             HW_SERIAL_OBJ.print(String(msg));
-            print(msgs...);
+            write(msgs...);
         }
 
         template<class... Tmsgs>
         void log(Tmsgs... msgs){
-            print('[', millis(), "] ", msgs...);
+            write('[', millis(), "] ", msgs...);
         }
 
         template<class... Tmsgs>
         void info(Tmsgs... msgs){
-            print('[', millis(), "] Info: ", msgs...);
+            write('[', millis(), "] Info: ", msgs...);
+        }
+
+        bool msg_comming(){
+            return HW_SERIAL_OBJ.available();
+        }
+
+        void flush(){
+            HW_SERIAL_OBJ.flush();
+        }
+
+        String read_msg(){
+            String msg = "";
+            while(HW_SERIAL_OBJ.available()){
+                msg += (char)HW_SERIAL_OBJ.read();
+                delay(1);
+            }
+            return msg;
         }
 
         ~SerialLogger(){
