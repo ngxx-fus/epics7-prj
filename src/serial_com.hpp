@@ -3,16 +3,22 @@
 
 #include "Arduino.h"
 
-#define MONITOR_SPEED 115200
-#define HW_SERIAL_OBJ Serial
-
+#ifndef MONITOR_SPEED
+    #define MONITOR_SPEED 115200
+#endif
+#ifndef HW_SERIAL_OBJ
+    #define HW_SERIAL_OBJ Serial
+#endif
+#ifndef INIT_MESSAGE
+    #define INIT_MESSAGE ">>> HELLO >>>"
+#endif
 class SerialLogger{
     private:
         uint32_t monitor_speed = MONITOR_SPEED;
-        String init_msg = ">>> HELLO >>>";
+        String init_msg = INIT_MESSAGE;
         bool initialized;
-
-    protected:
+        
+        protected:
         void change_init_msg(String new_init_msg){
             this->init_msg = new_init_msg;
         }
@@ -45,6 +51,21 @@ class SerialLogger{
             HW_SERIAL_OBJ.end();
             HW_SERIAL_OBJ.begin(this->monitor_speed);
             HW_SERIAL_OBJ.println(init_msg);
+        }
+
+        void raw_write_byte_arr(uint8_t* arr, size_t len){
+            Serial.write(arr, len);
+        }
+
+        template<class Tmsg>
+        void raw_write(Tmsg the_msg){
+            HW_SERIAL_OBJ.write(the_msg);
+        }
+
+        template<class Tmsg, class... Tmsgs>
+        void raw_write(Tmsg msg, Tmsgs... msgs){
+            HW_SERIAL_OBJ.write(msg);
+            write(msgs...);
         }
 
         template<class Tmsg>
@@ -89,7 +110,4 @@ class SerialLogger{
             HW_SERIAL_OBJ.end();
         }
 };
-
-SerialLogger logger;
-
 #endif

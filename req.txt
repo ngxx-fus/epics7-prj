@@ -1,0 +1,2 @@
+pyserial
+python-is-python3
