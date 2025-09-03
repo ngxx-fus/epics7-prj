@@ -2,11 +2,9 @@
 
   EPICS is an acronym for Engineering Projects in Community Service.
 
-## About the reposistory
+# About my project
 
-  This reposistory contains a part of the project of my team. Writing in C++ using FreeRTOS and Arduino framework.
+The project is a wearable device for the blind, using five ultrasonic sensors and a camera to help the user detect obstacles and provide information about objects in front of them. It uses a Raspberry Pi 4 running a YOLO-nano model with the COCO dataset.
 
-## About the module
-
-  This module will use 05 ultrasonic sensors to measure distances, thereby detecting obstacles in front of the wearer. Each ultrasonic sensor has a maximum range of 6 meters and a detection angle of up to 75 degrees. After collecting distance information, the secondary processor (using the ESP-WROOM32 development kit) will compare the data with preset conditions and issue warnings through two pulse buzzers on either side. Additionally, the secondary processor will send a copy of the information received from the sensors to the main processor.
+# Photos
 
